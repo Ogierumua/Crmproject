@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+  {% if user.is_authenticated %}
+  <h3>Hello {{firstname}}</h3>
+  <h3>You are Succesfully logged in</h3>
+  <button class = "btn btn-secondary"><a href = "/signout">SignOut</a></button>
+  {% else %}
+    
+
+    <form method = "POST" action = "/signin">
+    
+        {% csrf_token %}
+        <div class="row align-items-center g-lg-3 py-3">
+          <h1 class="display-5 fw-bold text-center mb-5">User Sign In</h1>
+          <div class="col-lg-7 text-center text-lg-start">
+            
+            <p class="col-lg-10 fs-3">Creating a Customer Relationship Management (CRM) system using Django, 
+              a popular web framework in Python, can be a rewarding and efficient way to manage interactions with 
+              clients and streamline business processes. 
+              In this hypothetical project overview, let's outline the key features and components of a Django CRM</p>
+          </div>
+          <div class="col-md-10 mx-auto col-lg-5">
+           
+              <div class=" mb-3">
+                <input type="text" class="form-control"  placeholder="username" name= "username" required>
+              
+              </div>
+              <div class=" mb-3">
+                <input type="password" class="form-control"  placeholder="Password" name = "password" required>
+                
+              </div>
+              <div class="checkbox mb-3">
+                <label>
+                  <input type="checkbox" value="remember-me"> Remember me
+                </label>
+              </div>
+              <button class="w-100 btn btn-lg btn-secondary" type="submit">Sign in</button>
+              <hr class="my-4">
+              <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+            
+          </div>
+        </div>
+        
+            
+         
+    
+    </form>
+    
+    </div>
+    
+    {% endif %}
+    {% endblock %}
+    
+    
