@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 import mysql.connector
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+#from .forms import SignupUser
 
 
 con = mysql.connector.connect(host = 'localhost', user = 'root', password = 'Hailmary@12345.', database = 'crmbase')
@@ -31,8 +32,19 @@ def signin(request):
         return render(request, 'signin.html')
 
 def signup(request):
-    
-    return render(request, 'signup.html')
+    if request.method == 'POST':
+        form = SignupUser(request.POST)
+        if form.is_validate():
+            form.save()
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password_A']
+        user = authenticate(username = username, password = password)
+        login(request, user)
+        messages.success(request, 'you have successfully registered')
+        return redirect('signin')
+    else:
+        form = SignupUser()
+        return render(request, 'signup.html', {'form':form})
 
 def signout(request):
     logout(request)
